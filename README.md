@@ -1,2 +1,1 @@
-# personal-site
-My personal website
+# react-for-beginners
