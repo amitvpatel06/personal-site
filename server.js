@@ -1,8 +1,8 @@
 require('babel-register');
-var React = require('react');
 
 var express = require('express');
 var path = require('path');
+var mongoose = require('mongoose');
 
 var app = express();
 var router = require('./router.js');
@@ -13,7 +13,15 @@ app.use('/', router);
 app.set('view engine', 'ejs');
 
 app.use("/", express.static("public"));
-
+	
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
 });
+
+
+mongoose.connect('mongodb://localhost');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function(){
+  console.log('Database connected!');
+})
