@@ -1,9 +1,11 @@
 
 var React = require('react');
 var reactDOM = require('react-dom');
-var Hello = require('./components/hello.jsx').Hello;
-var NavBar = require('./components/hello.jsx').NavBar;
+var PostList = require('./components/postlist.jsx');
+var NavBar = require('./components/nav.jsx').NavBar;
 var $ = require('jquery');
 
-var element = React.createElement(Hello);
-
+var nav = React.createElement(NavBar);
+React.renderComponent(nav, document.getElementById('nav'));
+var posts = React.createElement(PostList);
+React.renderComponent(posts, document.getElementById('postlist'));
