@@ -11,18 +11,21 @@ var Post = require('./models/post.js')
 var postStore;
 
 
-if (Post.count() == 0){
-	postStore = require('./data/posts');
-	for(let item in postStore){
-		let content = postStore[item]
-		let post = new Post(content);
-		post.save(function(err, post){
-			if(err){
-				return console.error(err);
-			}
-		});
-	}
+
+Post.collection.drop();
+postStore = require('./data/posts');
+console.log(postStore);
+for(let item in postStore){
+	let content = postStore[item]
+	let post = new Post(content);
+	post.save(function(err, post){
+		if(err){
+			return console.error(err);
+		}
+	});
+	console.log(item);
 }
+
 
 
 app.set('port', process.env.PORT || 3000);
