@@ -23,11 +23,10 @@ for(let item in postStore){
 			return console.error(err);
 		}
 	});
-	console.log(item);
 }
 
 
-
+app.use('/Amit_Resume', express.static(__dirname + '/public/data/Amit_Resume.pdf'));
 app.set('port', process.env.PORT || 3000);
 app.use('/', router);
 app.use(bodyParser.json());

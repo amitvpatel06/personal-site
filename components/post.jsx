@@ -4,7 +4,7 @@ var babel = require('babel-core');
 
 var Paragraph = React.createClass({
 	getDefaultProps: function() {
-		return {
+		return {			
 			text: "<div></div>"
 		}
 	},
@@ -24,6 +24,7 @@ var Paragraph = React.createClass({
 var PostHeading = React.createClass({
 	getDefaultProps: function() {
 		return {
+			img: 'img/post-bg.jpg',
 			title: 'No title yet!',
 			subtitle: 'No subtitle yet!',
 			date: 'No date yet!',
@@ -31,18 +32,24 @@ var PostHeading = React.createClass({
 		}
 	},
 	render: function() {
+		var headstyle = {
+			backgroundImage: "url('" + this.props.img + "')"
+		};
+				
 	    return (
-		    <div className="container">
+	    <header className="intro-header ng-scope" style={headstyle}>
+	        <div className="container">
 	            <div className="row">
 	                <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 	                    <div className="post-heading">
 	                        <h1>{this.props.title}</h1>
-	                        	<h2 className="subheading">{this.props.subtitle}</h2>
-	                        	<span className="meta">Posted by {this.props.author} on {this.props.date}</span>
+	                        <h2 className="subheading">{this.props.subtitle}</h2>
+	                        <span className="meta">Posted by {this.props.author} on {this.props.date}</span>
 	                    </div>
 	                </div>
 	            </div>
 	        </div>
+	    </header>
 	    );
   	}
 });
@@ -75,4 +82,5 @@ var Post = React.createClass({
   	}
 });
 
-module.exports = Post;
+module.exports.post = Post;
+module.exports.heading = PostHeading;

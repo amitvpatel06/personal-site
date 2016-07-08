@@ -7,7 +7,9 @@ var Post = require('./models/post.js');
 var nav = React.createFactory(require('./components/nav.jsx').NavBar);
 var postlist = React.createFactory(require('./components/postlist.jsx'));
 var footer = React.createFactory(require('./components/footer.jsx'));
-var postpage = React.createFactory(require('./components/post.jsx'))
+var postpage = React.createFactory(require('./components/post.jsx').post);
+var postheading = React.createFactory(require('./components/post.jsx').heading);
+var pageheading = React.createFactory(require('./components/nav.jsx').PageHeading);
 var posts; 
 
 
@@ -19,6 +21,12 @@ router.get('/', function (req, res) {
 		console.log(posts);
 		res.render('index', {
 							NavBar: reactDomServer.renderToString(nav({})),
+							Header: reactDomServer.renderToString(pageheading({
+								img: 'img/home-bg.jpg',
+								heading: "Amit Patel",
+								subheading: "",
+								pagetype: "site"
+							})),
 							PostList: reactDomServer.renderToString(postlist({previews: posts})),
 							Footer: reactDomServer.renderToString(footer({}))
 						}
@@ -26,11 +34,35 @@ router.get('/', function (req, res) {
 	});
 });
 
+router.get('/about', function (req, res) {
+	res.render('about', {
+							NavBar: reactDomServer.renderToString(nav({})),
+							Header: reactDomServer.renderToString(pageheading({
+								img: 'img/about-bg.jpg',
+								heading: "About Me",
+								subheading: "",
+								pagetype: "page"
+							})),
+							Footer: reactDomServer.renderToString(footer({}))
+						});
+});
+
+router.get('/contact', function (req, res) {
+	res.render('contact', {
+							NavBar: reactDomServer.renderToString(nav({})),
+							Header: reactDomServer.renderToString(pageheading({
+								img: 'img/contact-bg.jpg',
+								heading: "Contact Me",
+								subheading: "",
+								pagetype: "page"
+							})),
+							Footer: reactDomServer.renderToString(footer({}))
+						});
+});
 
 router.get('/post/:id', function (req, res) {
 	var post = {};
 	Post.find({id:req.params.id}, function(err, posts) {
-		console.log(posts);
 		if(err) {
 			res.render("couldn't find that post!");
 		}
@@ -45,9 +77,18 @@ router.get('/post/:id', function (req, res) {
 										date: post.date,
 										paragraphs:post.content.split("|")
 									})
-								)
+								),
+								Header: reactDomServer.renderToString(postheading({
+										title: post.title,
+										author: post.author,
+										subtitle: post.subtitle,
+										date: post.date,
+										img:post.img
+									})
+								),
+								Footer: reactDomServer.renderToString(footer({}))
 							}
-						);
+						)
 		}
 	});	
 });

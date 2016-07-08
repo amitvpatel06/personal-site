@@ -11,6 +11,7 @@ var PostSchema = new mongoose.Schema({
   author: String,
   content: String,	
   date: String,
+  img: String,
   author: String
 });
 
