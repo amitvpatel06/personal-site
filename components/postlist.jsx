@@ -35,6 +35,7 @@ var PostList = React.createClass({
 		}
 	},
 	render: function() {
+		console.log(this.props.previews.length);
 	    return (
 			<div className="container">
 				<div className="row">

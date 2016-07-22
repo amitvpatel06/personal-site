@@ -1,4 +1,6 @@
 'use strict'
+
+console.log("hi");
 require('babel-register');
 
 var express = require('express');
@@ -10,24 +12,26 @@ var router = require('./router.js');
 var Post = require('./models/post.js')
 var postStore;
 
-
-
-Post.collection.drop();
-postStore = require('./data/posts');
-console.log(postStore);
-for(let item in postStore){
-	let content = postStore[item]
-	let post = new Post(content);
-	post.save(function(err, post){
-		if(err){
-			return console.error(err);
-		}
-	});
-}
-
+var reReadDB = function() {
+	var postStore = require('./data/posts');
+	console.log(postStore);
+	for(var item in postStore) {
+		Post.collection.drop();
+		var content = postStore[item]
+		var post = new Post(content);
+		post.save(function(err, post){
+			if(err){
+				return console.error(err);
+			}
+		});
+	}
+	postStore = {};
+	console.log("Updated posts!");
+};
+reReadDB(); 
 
 app.use('/Amit_Resume', express.static(__dirname + '/public/data/Amit_Resume.pdf'));
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 8090);
 app.use('/', router);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
