@@ -19,6 +19,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.get('/', function (req, res) {
 	Post.find(function(err, posts){
 		console.log(posts);
+		posts.sort(function compareNumbers(a, b) { return b.id - a.id;});
 		res.render('index', {
 							NavBar: reactDomServer.renderToString(nav({})),
 							Header: reactDomServer.renderToString(pageheading({

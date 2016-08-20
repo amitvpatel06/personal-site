@@ -14,10 +14,10 @@ var postStore;
 
 var reReadDB = function() {
 	var postStore = require('./data/posts');
-	console.log(postStore);
 	for(var item in postStore) {
 		Post.collection.drop();
 		var content = postStore[item]
+		console.log(content.id);
 		var post = new Post(content);
 		post.save(function(err, post){
 			if(err){

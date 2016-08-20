@@ -3,8 +3,7 @@ var mongoose = require('mongoose');
 
 var PostSchema = new mongoose.Schema({
   id: {
-  	type: Number,
-  	index: true
+  	type: Number
   }, 
   title: String,
   subtitle: String,
